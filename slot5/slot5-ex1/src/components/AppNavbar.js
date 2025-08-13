@@ -1,4 +1,4 @@
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export default function AppNavbar() {
@@ -20,8 +20,9 @@ export default function AppNavbar() {
         <Navbar.Collapse id="main-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/about">About</Nav.Link>
             <Nav.Link as={Link} to="/recipes">Recipes</Nav.Link>
+            <Nav.Link as={Link} to="/about">About</Nav.Link>
+            <Nav.Link as={Link} to="/recipe-request-form">Recipe Request Form</Nav.Link>
           </Nav>
           <Button as={Link} to="/recipes" variant="success">Browse recipes</Button>
         </Navbar.Collapse>

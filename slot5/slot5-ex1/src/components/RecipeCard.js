@@ -1,8 +1,20 @@
-import { Card, Button, ListGroup, Modal } from "react-bootstrap";
+// components/RecipeCard.js
+import { Card, Button, ListGroup, Modal, Badge, Toast } from "react-bootstrap";
 import { useState } from "react";
+import { Heart, HeartFill } from "react-bootstrap-icons";
 
 export default function RecipeCard({ recipe }) {
   const [show, setShow] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+
+  const handleFavorite = () => {
+    setIsFavorite(!isFavorite);
+    if (!isFavorite) {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 5000);
+    }
+  };
 
   return (
     <>
@@ -14,7 +26,17 @@ export default function RecipeCard({ recipe }) {
           style={{ objectFit: "cover", height: 200 }}
         />
         <Card.Body className="d-flex flex-column">
-          <Card.Title className="fw-semibold">{recipe.title}</Card.Title>
+          <Card.Title className="fw-semibold">
+            {recipe.title}
+            <Badge
+              bg="danger"
+              className="ms-2"
+              style={{ cursor: "pointer" }}
+              onClick={handleFavorite}
+            >
+              {isFavorite ? <HeartFill /> : <Heart />}
+            </Badge>
+          </Card.Title>
           <Card.Text className="text-muted small flex-grow-1">
             {recipe.description}
           </Card.Text>
@@ -34,6 +56,13 @@ export default function RecipeCard({ recipe }) {
           </ListGroup>
           <Button variant="success" onClick={() => setShow(true)}>
             View Recipe
+          </Button>
+          <Button
+            variant="outline-primary"
+            className="mt-2"
+            onClick={handleFavorite}
+          >
+            {isFavorite ? "❤️ Favorited" : "♡ Add to Favourite"}
           </Button>
         </Card.Body>
       </Card>
@@ -59,6 +88,16 @@ export default function RecipeCard({ recipe }) {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <Toast
+        show={showToast}
+        onClose={() => setShowToast(false)}
+        style={{ position: "fixed", top: 20, right: 20 }}
+        bg="success"
+        autohide
+      >
+        <Toast.Body className="text-white">Added to favourites</Toast.Body>
+      </Toast>
     </>
   );
 }
