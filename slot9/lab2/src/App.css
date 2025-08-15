@@ -1,0 +1,75 @@
+.custom-navbar {
+  background: linear-gradient(90deg, #000000, #1c1c1c);
+}
+
+.custom-navbar .nav-link {
+  color: white !important;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.custom-navbar .nav-link:hover {
+  color: #0d6efd !important;
+}
+
+.custom-navbar .nav-link.nav-active {
+  color: #0d6efd !important;
+}
+
+.custom-navbar .nav-link.nav-active::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #0d6efd;
+  border-radius: 2px;
+}
+
+
+body {
+  background-color: #f8f9fa;
+}
+.movie-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.movie-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.card-img-container {
+  height: 150px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa; 
+}
+.card-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+}
+
+.movie-card .card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.movie-card .badge {
+  font-size: 0.75rem;
+  padding: 0.3em 0.5em;
+  border-radius: 5px;
+}
+.movie-card .btn {
+  font-size: 0.85rem;
+  border-radius: 5px;
+}
