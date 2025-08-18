@@ -4,49 +4,42 @@ import { Modal, Button, Form, Toast, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const ProfileForm = ({ defaultName = "", defaultEmail = "", defaultAge = "" }) => {
-  const [formData, setFormData] = useState({
-    name: defaultName,
-    email: defaultEmail,
-    age: defaultAge
-  });
+  const [name, setName] = useState(defaultName);
+  const [email, setEmail] = useState(defaultEmail);
+  const [age, setAge] = useState(defaultAge);
 
-  const [validated, setValidated] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const validateForm = () => {
-    const { name, email, age } = formData;
-    return (
-      name.trim() !== "" &&
-      email.includes("@") &&
-      Number(age) >= 1
-    );
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    
-    if (form.checkValidity() && validateForm()) {
-      setShowModal(true);
-      setShowToast(true);
+
+    // Validate cơ bản -> báo lỗi bằng alert
+    if (!name.trim()) {
+      alert("⚠️ Vui lòng nhập họ tên!");
+      return;
+    }
+    if (!email.includes("@")) {
+      alert("⚠️ Email không hợp lệ!");
+      return;
+    }
+    if (!age || Number(age) < 1) {
+      alert("⚠️ Tuổi phải lớn hơn 0!");
+      return;
     }
 
-    setValidated(true);
+    // Nếu hợp lệ thì hiển thị modal + toast
+    setShowModal(true);
+    setShowToast(true);
   };
 
   return (
     <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center bg-light">
-      {/* Toast thông báo */}
-      <Toast 
-        onClose={() => setShowToast(false)} 
-        show={showToast} 
-        delay={3000} 
+      {/* Toast thông báo thành công */}
+      <Toast
+        onClose={() => setShowToast(false)}
+        show={showToast}
+        delay={3000}
         autohide
         className="position-fixed top-0 end-0 m-3"
         bg="success"
@@ -57,65 +50,46 @@ const ProfileForm = ({ defaultName = "", defaultEmail = "", defaultAge = "" }) =
         <Toast.Body className="text-white">Thông tin đã được lưu!</Toast.Body>
       </Toast>
 
-      {/* Form đăng ký */}
+      {/* Form nhập thông tin */}
       <Card className="shadow-sm border-0" style={{ width: "100%", maxWidth: "500px" }}>
         <Card.Body className="p-4">
           <div className="text-center mb-4">
             <h3 className="fw-bold text-primary">I love react</h3>
           </div>
 
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
               <Form.Label>Họ và tên</Form.Label>
               <Form.Control
-                required
                 type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 placeholder="Nhập họ tên đầy đủ"
               />
-              <Form.Control.Feedback type="invalid">
-                Vui lòng nhập họ tên
-              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
               <Form.Control
-                required
                 type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="example@email.com"
               />
-              <Form.Control.Feedback type="invalid">
-                Email không hợp lệ
-              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-4">
               <Form.Label>Tuổi</Form.Label>
               <Form.Control
-                required
                 type="number"
                 min="1"
-                name="age"
-                value={formData.age}
-                onChange={handleChange}
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
                 placeholder="Nhập tuổi"
               />
-              <Form.Control.Feedback type="invalid">
-                Tuổi phải lớn hơn 0
-              </Form.Control.Feedback>
             </Form.Group>
 
-            <Button 
-              variant="primary" 
-              type="submit" 
-              className="w-100 py-2 fw-bold"
-            >
+            <Button variant="primary" type="submit" className="w-100 py-2 fw-bold">
               ĐĂNG KÝ NGAY
             </Button>
           </Form>
@@ -129,23 +103,23 @@ const ProfileForm = ({ defaultName = "", defaultEmail = "", defaultAge = "" }) =
         </Modal.Header>
         <Modal.Body>
           <div className="text-center mb-3">
-            <div 
-              className="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" 
+            <div
+              className="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center"
               style={{ width: "80px", height: "80px" }}
             >
-              <span className="text-white fs-3">{formData.name.charAt(0).toUpperCase()}</span>
+              <span className="text-white fs-3">{name.charAt(0).toUpperCase()}</span>
             </div>
-            <h4 className="mt-3">{formData.name}</h4>
+            <h4 className="mt-3">{name}</h4>
           </div>
 
           <ul className="list-group list-group-flush">
             <li className="list-group-item d-flex justify-content-between">
               <span className="fw-bold">Email:</span>
-              <span>{formData.email}</span>
+              <span>{email}</span>
             </li>
             <li className="list-group-item d-flex justify-content-between">
               <span className="fw-bold">Tuổi:</span>
-              <span>{formData.age}</span>
+              <span>{age}</span>
             </li>
           </ul>
         </Modal.Body>

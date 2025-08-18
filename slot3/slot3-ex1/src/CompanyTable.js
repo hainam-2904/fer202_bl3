@@ -74,7 +74,8 @@ export default function CompanyTable() {
       </div>
 
       {filteredCompanies.length === 0 ? (
-        <p>No result</p>
+        //<p>No result</p>
+        alert ("khong ket qua")
       ) : (
         <table>
           <thead>
