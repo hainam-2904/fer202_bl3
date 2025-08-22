@@ -1,27 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import { CartContext } from "./CartContext";
+import { Card, Table, Button, Badge } from "react-bootstrap";
 
 const Cart = () => {
   const { cartItems, removeFromCart, clearCart, totalValue } =
     useContext(CartContext);
+const handleCheckout = () => {
+  alert("Checkout successful!");
+  clearCart();
+};
 
   return (
     <section className="my-4">
-      <div className="card shadow-sm">
-        <div className="card-header d-flex align-items-center justify-content-between">
+      <Card className="shadow-sm">
+        <Card.Header className="d-flex align-items-center justify-content-between">
           <h2 className="h5 m-0">Giỏ hàng</h2>
-          <span className="badge text-bg-secondary">
+          <Badge bg="secondary">
             {cartItems.length} item{cartItems.length !== 1 ? "s" : ""}
-          </span>
-        </div>
+          </Badge>
+        </Card.Header>
 
-        <div className="card-body">
+        <Card.Body>
           {cartItems.length === 0 ? (
             <p className="text-muted mb-0">Giỏ hàng của bạn đang trống.</p>
           ) : (
             <>
               <div className="table-responsive">
-                <table className="table align-middle">
+                <Table striped hover bordered size="sm" className="align-middle">
                   <thead>
                     <tr>
                       <th style={{ width: "50%" }}>Món</th>
@@ -33,14 +38,17 @@ const Cart = () => {
                     {cartItems.map((item) => (
                       <tr key={item.id}>
                         <td>{item.name}</td>
-                        <td className="text-end">${parseFloat(item.price).toFixed(2)}</td>
                         <td className="text-end">
-                          <button
-                            className="btn btn-outline-danger btn-sm"
+                          ${parseFloat(item.price).toFixed(2)}
+                        </td>
+                        <td className="text-end">
+                          <Button
+                            variant="outline-danger"
+                            size="sm"
                             onClick={() => removeFromCart(item.id)}
                           >
                             Remove
-                          </button>
+                          </Button>
                         </td>
                       </tr>
                     ))}
@@ -52,21 +60,21 @@ const Cart = () => {
                       <th />
                     </tr>
                   </tfoot>
-                </table>
+                </Table>
               </div>
 
               <div className="d-flex justify-content-end gap-2">
-                <button className="btn btn-outline-secondary" onClick={clearCart}>
+                <Button variant="outline-secondary" onClick={clearCart}>
                   Clear Cart
-                </button>
-                <button className="btn btn-success" disabled>
-                  Checkout (coming soon)
-                </button>
+                </Button>
+                <Button variant="success" onClick={handleCheckout}>
+                  Checkout
+                </Button>
               </div>
             </>
           )}
-        </div>
-      </div>
+        </Card.Body>
+      </Card>
     </section>
   );
 };

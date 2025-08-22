@@ -63,7 +63,9 @@ function AppInner() {
       </main>
       <footer className="border-top py-3">
         <div className="container text-center text-muted small">
-          Demo cart • React + Context + Bootstrap
+          <p className="mb-0">
+            © {new Date().getFullYear()} Food Cart. All rights reserved.
+          </p>
         </div>
       </footer>
     </>
