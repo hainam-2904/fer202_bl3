@@ -9,9 +9,15 @@ const BannerCarousel = () => {
           className="d-block w-100"
           src="images/banner1.jpg"
           alt="First slide"
-          style={{ height: "400px", objectFit: "cover" }} 
+          style={{ height: "400px", objectFit: "cover" }}
         />
+        <Carousel.Caption>
+          <h2 style={{ color: "white", fontWeight: "bold" }}>
+            Khám giá các loại đồ ăn top 1 thế giới
+          </h2>
+        </Carousel.Caption>
       </Carousel.Item>
+
       <Carousel.Item>
         <img
           className="d-block w-100"
@@ -19,7 +25,13 @@ const BannerCarousel = () => {
           alt="Second slide"
           style={{ height: "400px", objectFit: "cover" }}
         />
+        <Carousel.Caption>
+          <h2 style={{ color: "white", fontWeight: "bold" }}>
+            Đỉnh nóc kịch trần
+          </h2>
+        </Carousel.Caption>
       </Carousel.Item>
+
       <Carousel.Item>
         <img
           className="d-block w-100"
@@ -27,6 +39,11 @@ const BannerCarousel = () => {
           alt="Third slide"
           style={{ height: "400px", objectFit: "cover" }}
         />
+        <Carousel.Caption>
+          <h2 style={{ color: "white", fontWeight: "bold" }}>
+            Giảm giá cực sốc hôm nay
+          </h2>
+        </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
   );

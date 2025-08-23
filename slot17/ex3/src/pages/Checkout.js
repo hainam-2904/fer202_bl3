@@ -41,7 +41,7 @@ const Checkout = () => {
     <section className="container my-4">
       <h2>Checkout</h2>
       <p>
-        Xin chào <b>{user.name}</b>, bạn đang tiến hành thanh toán!
+        Xin chào <b>{user.username}</b>, bạn đang tiến hành thanh toán!
       </p>
 
       {cartItems.length === 0 ? (

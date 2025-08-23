@@ -22,7 +22,7 @@ function AppContent() {
         message={state.message}
         bg={state.bg}
       />
-      <Footer />
+      <Footer />  
     </>
   );
 }

@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     const success = login(username, password);
     if (success) {
-      navigate("/checkout"); // nếu login thành công thì sang checkout
+      navigate("/checkout");
     } else {
       alert("Đăng nhập thất bại!");
     }

@@ -9,17 +9,17 @@ const Profile = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/login"); // nếu chưa login thì về login
+      navigate("/login"); 
     }
   }, [user, navigate]);
 
-  if (!user) return null; // tránh render khi chưa có user
+  if (!user) return null; 
 
   return (
     <section className="container my-4" style={{ maxWidth: 500 }}>
       <Card className="p-3 shadow-sm">
         <h3 className="mb-3">Thông tin cá nhân</h3>
-        <p><strong>Name:</strong> {user.name}</p>
+        <p><strong>Username:</strong> {user.username}</p>
         <p><strong>Email:</strong> {user.email}</p>
 
         <div className="d-flex justify-content-end gap-2">
@@ -29,7 +29,7 @@ const Profile = () => {
           <Button
             variant="danger"
             onClick={() => {
-              logout();
+              logout(); 
               navigate("/login");
             }}
           >

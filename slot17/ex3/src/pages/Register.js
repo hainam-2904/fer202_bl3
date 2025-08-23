@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [form, setForm] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -12,13 +13,27 @@ const Register = () => {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-
+  const navigate = useNavigate();
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     if (form.password !== form.confirmPassword) {
       alert("Password không khớp!");
       return;
-    }
+    } else if  (users.find((u) => u.username === form.username)) {
+      alert("Username đã tồn tại!");
+      return;
+    } else navigate("/login");
+
+    const newUser = {
+      username: form.username,
+      email: form.email,
+      password: form.password,
+    };
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+
     alert("Register thành công!");
   };
 
@@ -28,11 +43,11 @@ const Register = () => {
         <h3 className="mb-3">Register Account</h3>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>Username</Form.Label>
             <Form.Control
-              name="name"
+              name="username"
               type="text"
-              value={form.name}
+              value={form.username}
               onChange={handleChange}
               required
             />
